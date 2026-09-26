@@ -9,7 +9,8 @@
 | 1.00         | 1.00             | 2.00             | 4.00             | 4.00 |···  |
 
 
-test 截图：
+test 截图：<img width="1376" height="648" alt="image" src="https://github.com/user-attachments/assets/f104b5ce-0d5b-422a-a3cd-61ba1bfb9698" />
+
 
 
 <!-- TODO: 用一个通过的截图，本地图片，放到 imgs 文件夹下，不要用这个 github，pandoc 解析可能有问题 -->
