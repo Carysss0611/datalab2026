@@ -10,7 +10,7 @@
 
 
 
-test 截图：<img width="1376" height="648" alt="image" src="https://github.com/user-attachments/assets/f104b5ce-0d5b-422a-a3cd-61ba1bfb9698" />
+test 截图：
 
 
 
