@@ -11,7 +11,7 @@
 
 
 test 截图：
-![test截图](report/imgs/test截图.png)
+![test截图](imgs/test截图.png)
 
 
 
