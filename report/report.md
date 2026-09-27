@@ -21,18 +21,34 @@ test 截图：
 
 <!-- 告诉助教哪些函数是你实现得最优秀的，比如你可以排序。不需要展开，展开请放到后文中。 -->
 
-1. bitXor
-2. byteSwap
+1. float64_f2i
+2. reverse
+3. leftBitCount
+4. floatPower2
+5. logtwo
+
+### bitAnd
+
+```c
+// 附上题目解题代码
+int bitAnd(int x, int y) {
+    return ~(~x | ~y);
+}
+```
+
+思路：
+根据德摩根定律，两个变量的按位与，等价于两个变量分别取反后再按位或的整体取反
 
 ### bitXor
 
 ```c
-// 附上题目解题代码
+int bitXor(int x, int y) {
+    return ~(~x & ~y) & ~(x & y);
+}
 ```
 
-讲解题目思路
-
-### ......
+思路：
+异或是对应位不同则结果为1，相同则结果为0，可表示为 (x | y) & ~(x & y)，再利用德摩根定律将 x | y 转换为 ~(~x & ~y)
 
 ## 反馈/收获/感悟/总结
 
