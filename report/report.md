@@ -296,6 +296,64 @@ unsigned floatScale2(unsigned uf) {
 2. 非规格化数处理：若阶码全0，左移一位数值乘2，若尾数最高位为1，则乘2后变为规格化数，阶码为1，尾数保留低23位
 3. 规格化数处理：阶码加1实现乘2，若阶码加1后变为全1，则变为无穷大，尾数清零
 
+### float64_f2i
+
+```c
+int float64_f2i(unsigned uf1, unsigned uf2) {
+    unsigned sign = (uf2 >> 31) & 1; // 符号位
+    unsigned exp = (uf2 >> 20) & 0x7FF; // 阶码
+    unsigned frac_high = uf2 & 0xFFFFF; // 尾数高20位
+    unsigned frac_low = uf1;  // 尾数低32位
+    int real_exp = exp - 1023;  // 真实指数，偏移量1023
+
+    // 阶码全1 0x7FF
+    if (exp > 0x7FE)
+    {
+        return 0x80000000;
+    }
+
+    // 真实指数小于0，舍入为0
+    if (real_exp < 0)
+    {
+        return 0;
+    }
+
+    // 真实指数>=31
+    if (real_exp >= 31)
+    {
+        return 0x80000000;
+    }
+
+    unsigned hi32 = (1 << 20) | frac_high;  // 还原最高位的1
+    int shift = 52 - real_exp;  // 需要右移的总位数
+    unsigned abs_val;
+
+    if (shift >= 32)
+    {
+        abs_val = hi32 >> (shift - 32);
+    }
+    else
+    {
+        abs_val = (hi32 << (32 - shift)) | (frac_low >> shift);
+    }
+
+    if (!sign)
+    {
+        return abs_val;
+    }
+    else
+    {
+        return -abs_val;
+    }
+}
+```
+
+思路：
+1. 从输入的高低32位中分别提取符号位、11位阶码及52位尾数的高20位和低32位
+2. 阶码全1，直接返回0x80000000；真实指数小于0，舍入为0；真实指数>=31，超出32位有符号整数表示范围，返回0x80000000
+3. 补上规格化数隐含的最高位1，根据真实指数计算右移总位数，通过右移丢弃小数部分实现向零舍入；分移位量是否超过32位两种情况，拼接高低位尾数得到32位整数绝对值
+4. 根据符号位对绝对值进行处理，得到最终有符号整数值
+
 ## 反馈/收获/感悟/总结
 
 <!-- 这一节，你可以简单描述你在这个 lab 上花费的时间/你认为的难度/你认为不合理的地方/你认为有趣的地方 -->
