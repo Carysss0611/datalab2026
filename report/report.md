@@ -10,7 +10,9 @@
 
 
 
-test 截图：report/imgs/test截图.png
+test 截图：
+![test截图](report/imgs/test截图.png)
+
 
 
 <!-- TODO: 用一个通过的截图，本地图片，放到 imgs 文件夹下，不要用这个 github，pandoc 解析可能有问题 -->
