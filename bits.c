@@ -320,7 +320,7 @@ int float64_f2i(unsigned uf1, unsigned uf2) {
         return 0x80000000;
     }
 
-    unsigned hi32 = (1 << 20) | frac_high;
+    unsigned hi32 = (1 << 20) | frac_high;  // 还原最高位的1
     int shift = 52 - real_exp;  // 需要右移的总位数
     unsigned abs_val;
 
