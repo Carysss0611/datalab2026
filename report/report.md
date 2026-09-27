@@ -10,7 +10,7 @@
 
 
 
-test 截图：
+test 截图：report/imgs/test截图.png
 
 
 <!-- TODO: 用一个通过的截图，本地图片，放到 imgs 文件夹下，不要用这个 github，pandoc 解析可能有问题 -->
@@ -112,6 +112,33 @@ int logtwo(int v) {
 2位区间判断：同理判断高2位，存在则res加2，不在则不变
 
 1位区间判断：同理判断高1位，存在则res加1，不在则不变
+
+### byteSwap
+
+```c
+int byteSwap(int x, int n, int m) {
+    int shift_n = n << 3;  // n字节左移3位(×8)，得到n字节的位移量
+    int shift_m = m << 3;  // m字节左移3位(×8)，得到m字节的位移量
+
+    int byte_n = (x >> shift_n) & 0xFF;  // 提取第n字节
+    int byte_m = (x >> shift_m) & 0xFF;  // 提取第m字节
+
+    // 清除第n字节和第m字节
+    int mask = ~((0xFF << shift_n) | (0xFF << shift_m));
+    int res = x & mask;
+
+    // 将第n字节和第m字节交换
+    res |= (byte_n << shift_m) | (byte_m << shift_n);
+    return res;
+}
+```
+
+思路：采用“提取->清空->写回”的操作思路
+
+1. 将n,m左移3位，得到对应二进制位偏移量
+2. 通过移位配合掩码，提取两个目标字节
+3. 构造掩码清空原数中两个字节
+4. 将两个提取的字节交换位置写回
 
 ## 反馈/收获/感悟/总结
 
